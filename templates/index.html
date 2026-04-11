@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Clínica Vida+</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f8fbff;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(120deg, #00c6ff, #0072ff);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+/* CONTAINER */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: -40px auto 40px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* FORM */
+.form-title {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.form-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+input:focus {
+    border-color: #0072ff;
+}
+
+/* BUTTON */
+.btn {
+    background: linear-gradient(120deg, #00c6ff, #0072ff);
+    border: none;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 12px;
+    color: #666;
+}
+
+td {
+    padding: 12px;
+    border-top: 1px solid #eee;
+}
+
+tr:hover {
+    background: #f4f8ff;
+}
+
+/* DELETE */
+.delete {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+    <h1>Clínica Vida+</h1>
+    <p>Cuidando da sua saúde com excelência</p>
+</div>
+
+<div class="container">
+
+    <!-- CADASTRO -->
+    <div class="card">
+        <h2 class="form-title">Cadastrar Paciente</h2>
+
+        <div class="form-group">
+            <input type="text" id="nome" placeholder="Nome">
+            <input type="text" id="telefone" placeholder="Telefone">
+            <input type="text" id="email" placeholder="Email">
+            <button class="btn" onclick="cadastrar()">Cadastrar</button>
+        </div>
+    </div>
+
+    <!-- LISTA -->
+    <div class="card">
+        <h2>Pacientes</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tabela"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+function carregar() {
+    fetch("/pacientes")
+        .then(res => res.json())
+        .then(data => {
+            let tabela = document.getElementById("tabela");
+            tabela.innerHTML = "";
+
+            data.forEach(p => {
+                tabela.innerHTML += `
+                    <tr>
+                        <td>${p[1]}</td>
+                        <td>${p[3]}</td>
+                        <td>${p[4]}</td>
+                        <td><button class="delete" onclick="deletar(${p[0]})">X</button></td>
+                    </tr>
+                `;
+            });
+        });
+}
+
+function cadastrar() {
+    const nome = document.getElementById("nome").value;
+    const telefone = document.getElementById("telefone").value;
+    const email = document.getElementById("email").value;
+
+    fetch("/pacientes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, telefone, email })
+    })
+    .then(() => {
+        limpar();
+        carregar();
+    });
+}
+
+function deletar(id) {
+    fetch(`/pacientes/${id}`, { method: "DELETE" })
+        .then(() => carregar());
+}
+
+function limpar() {
+    document.getElementById("nome").value = "";
+    document.getElementById("telefone").value = "";
+    document.getElementById("email").value = "";
+}
+
+carregar();
+</script>
+
+</body>
+</html>

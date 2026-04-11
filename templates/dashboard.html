@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background:#f4f8fc;
+    padding:30px;
+}
+
+/* CARD */
+.card {
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+/* INPUT */
+input, select {
+    padding:10px;
+    margin:5px;
+}
+
+/* BUTTON */
+button {
+    padding:10px;
+    background:#0072ff;
+    color:white;
+    border:none;
+    border-radius:6px;
+}
+
+/* LISTA */
+.consulta {
+    padding:10px;
+    border-bottom:1px solid #eee;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Olá, {{ nome }}</h2>
+
+<!-- AGENDAR -->
+<div class="card">
+    <h3>Agendar Consulta</h3>
+
+    <form method="POST" action="/agendar">
+        <select name="medico">
+            <option>Dr. Carlos - Clínico</option>
+            <option>Dra. Ana - Cardiologista</option>
+        </select>
+
+        <input type="date" name="data" required>
+        <input type="time" name="hora" required>
+
+        <button>Agendar</button>
+    </form>
+</div>
+
+<!-- CONSULTAS -->
+<div class="card">
+    <h3>Minhas Consultas</h3>
+
+    {% for c in consultas %}
+        <div class="consulta">
+            <strong>{{ c[0] }}</strong><br>
+            {{ c[1] }} às {{ c[2] }}
+        </div>
+    {% else %}
+        <p>Nenhuma consulta agendada</p>
+    {% endfor %}
+</div>
+
+<a href="/logout">Sair</a>
+
+</body>
+</html>

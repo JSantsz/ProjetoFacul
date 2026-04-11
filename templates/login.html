@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Login - Clínica Vida+</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f6f9fc;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* CONTAINER CENTRAL */
+.wrapper {
+    width:100%;
+    max-width:900px;
+    display:flex;
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(0,0,0,0.08);
+}
+
+/* LADO SUAVE */
+.side {
+    flex:1;
+    background:#eef5ff;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:40px;
+}
+
+.side h1 {
+    color:#0072ff;
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.side p {
+    color:#555;
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* FORM */
+.form-area {
+    flex:1;
+    padding:40px;
+}
+
+/* TITULO */
+h2 {
+    margin-bottom:20px;
+    color:#333;
+}
+
+/* INPUT */
+input {
+    width:100%;
+    padding:14px;
+    margin-bottom:12px;
+    border-radius:10px;
+    border:1px solid #e0e0e0;
+    font-size:14px;
+    transition:0.2s;
+}
+
+input:focus {
+    border-color:#0072ff;
+    box-shadow:0 0 5px rgba(0,114,255,0.2);
+}
+
+/* BUTTON */
+button {
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#0072ff;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover {
+    background:#005fd1;
+}
+
+/* DIVIDER */
+.divider {
+    text-align:center;
+    margin:20px 0;
+    color:#aaa;
+}
+
+/* RESPONSIVO */
+@media(max-width:800px){
+    .wrapper {
+        flex-direction:column;
+    }
+
+    .side {
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- LADO SUAVE -->
+    <div class="side">
+        <h1>Clínica Vida+</h1>
+        <p>
+            Acesse sua área do paciente para agendar consultas, 
+            visualizar exames e acompanhar seu histórico médico.
+        </p>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-area">
+
+        <h2>Entrar</h2>
+
+        <form method="POST" action="/login">
+            <input type="email" name="email" placeholder="Seu email" required>
+            <input type="password" name="senha" placeholder="Sua senha" required>
+            <button>Entrar</button>
+        </form>
+
+        <div class="divider">ou</div>
+
+        <h2>Criar conta</h2>
+
+        <form method="POST" action="/register">
+            <input type="text" name="nome" placeholder="Nome completo" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="senha" placeholder="Senha" required>
+            <button>Cadastrar</button>
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
