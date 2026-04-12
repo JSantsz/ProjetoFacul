@@ -1,6 +1,4 @@
--- =========================
--- BANCO CLINICA (SIMPLES)
--- =========================
+-- BANCO CLINICA 
 
 -- PACIENTES
 CREATE TABLE pacientes (
