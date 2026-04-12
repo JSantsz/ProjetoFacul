@@ -11,6 +11,38 @@ def conectar():
     return sqlite3.connect("clinica.db")
 
 
+# CRIAR TABELAS
+def criar_tabelas():
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS usuarios (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        senha TEXT NOT NULL,
+        tipo TEXT NOT NULL
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS consultas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        usuario_id INTEGER,
+        medico TEXT,
+        data TEXT,
+        hora TEXT
+    )
+    """)
+
+    conn.commit()
+    conn.close()
+
+
+criar_tabelas()
+
+
 # HOME
 @app.route("/")
 def home():
@@ -23,13 +55,13 @@ def login_page():
     return render_template("login.html")
 
 
-# REGISTER PAGE (IMPORTANTE PRA ABRIR A TELA)
+# REGISTER PAGE
 @app.route("/register", methods=["GET"])
 def register_page():
     return render_template("register.html")
 
 
-# CADASTRO
+# CADASTRO (SEMPRE PACIENTE)
 @app.route("/register", methods=["POST"])
 def register():
     data = request.form
@@ -37,20 +69,22 @@ def register():
     conn = conectar()
     cursor = conn.cursor()
 
-    # Verifica se email já existe
+    # Verifica email duplicado
     cursor.execute("SELECT * FROM usuarios WHERE email=?", (data["email"],))
     if cursor.fetchone():
         conn.close()
         flash("Email já cadastrado")
         return redirect("/register")
 
-    # Criptografa senha
     senha_hash = generate_password_hash(data["senha"])
 
-    cursor.execute(
-        "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)",
-        (data["nome"], data["email"], senha_hash)
-    )
+    # 👇 FORÇA COMO PACIENTE
+    tipo = "paciente"
+
+    cursor.execute("""
+        INSERT INTO usuarios (nome, email, senha, tipo)
+        VALUES (?, ?, ?, ?)
+    """, (data["nome"], data["email"], senha_hash, tipo))
 
     conn.commit()
     conn.close()
@@ -72,17 +106,17 @@ def login():
 
     conn.close()
 
-    # Verifica senha com hash
     if user and check_password_hash(user[3], data["senha"]):
         session["user_id"] = user[0]
         session["nome"] = user[1]
+        session["tipo"] = user[4]
         return redirect("/dashboard")
     else:
         flash("Email ou senha inválidos")
         return redirect("/login")
 
 
-# DASHBOARD (PACIENTE)
+# DASHBOARD
 @app.route("/dashboard")
 def dashboard():
     if "user_id" not in session:
@@ -91,10 +125,11 @@ def dashboard():
     conn = conectar()
     cursor = conn.cursor()
 
-    cursor.execute(
-        "SELECT medico, data, hora FROM consultas WHERE usuario_id=?",
-        (session["user_id"],)
-    )
+    cursor.execute("""
+        SELECT medico, data, hora
+        FROM consultas
+        WHERE usuario_id=?
+    """, (session["user_id"],))
 
     consultas = cursor.fetchall()
     conn.close()
@@ -102,22 +137,20 @@ def dashboard():
     return render_template(
         "dashboard.html",
         nome=session["nome"],
+        tipo=session["tipo"],
         consultas=consultas
     )
 
 
-# LOGOUT
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect("/")
-
-
-# AGENDAR CONSULTA
+# AGENDAR CONSULTA (SÓ PACIENTE)
 @app.route("/agendar", methods=["POST"])
 def agendar():
     if "user_id" not in session:
         return redirect("/login")
+
+    # 👇 BLOQUEIO POR TIPO
+    if session["tipo"] != "paciente":
+        return "Acesso negado"
 
     data = request.form
 
@@ -133,6 +166,13 @@ def agendar():
     conn.close()
 
     return redirect("/dashboard")
+
+
+# LOGOUT
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
 
 
 if __name__ == "__main__":
