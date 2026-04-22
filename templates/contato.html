@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Contato - Clínica Vida+</title>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: url("{{ url_for('static', filename='images/contato.jpg') }}") no-repeat center center;
+  background-size: cover;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 40px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  height: 35px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo span {
+  color: #0072ff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.navbar a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* container */
+.container {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* card */
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.card h2 {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #00a2ff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #00cbfd;
+}
+</style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <div class="navbar">
+    <div class="logo">
+      <span>Clínica Vida+</span>
+     </div>
+    <div>
+      <a href="/">Início</a>
+      <a href="/servicos">Serviços</a>
+      <a href="/medicos">Médicos</a>
+      <a href="/contato">Contato</a>
+      <a href="/login">Login</a>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="card">
+    <h2>Contato</h2>
+
+    <form>
+      <div class="input-group">
+        <input type="text" placeholder="Seu nome">
+      </div>
+
+      <div class="input-group">
+        <input type="email" placeholder="Seu email">
+      </div>
+
+      <div class="input-group">
+        <textarea rows="4" placeholder="Sua mensagem"></textarea>
+      </div>
+
+      <button class="btn">Enviar</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

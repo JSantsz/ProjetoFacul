@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Avaliações Psicológicas</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+
+  background: url("{{ url_for('static', filename='images/exames.jpg') }}") no-repeat center center;
+  background-size: cover;
+}
+
+/* overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-color: #00000080;
+}
+
+/* container */
+.container {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+/* cards */
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background: white;
+  color: #333;
+  padding: 20px;
+  border-radius: 12px;
+  width: 260px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Avaliações Psicológicas</h1>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Teste de Ansiedade</h3>
+      <p>Avaliação do nível de ansiedade</p>
+    </div>
+
+    <div class="card">
+      <h3>Teste de Depressão</h3>
+      <p>Identificação de sintomas depressivos</p>
+    </div>
+
+    <div class="card">
+      <h3>Avaliação Emocional</h3>
+      <p>Análise do estado emocional geral</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

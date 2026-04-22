@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Serviços - Clínica Vida+</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+
+  background: url("{{ url_for('static', filename='images/servicos.jpg') }}") no-repeat center center;
+  background-size: cover;
+}
+
+/* escurece fundo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-color: #00000080;
+}
+
+
+/* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1px 40px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      box-sizing: border-box;
+    }
+
+    .navbar h2 { color: #0072ff; }
+
+    .navbar a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+
+/* container */
+.container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 40px 20px 40px 20px; /* era 100px, reduzi para 70px */
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+/* cards */
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background: white;
+  color: #333;
+  padding: 20px;
+  border-radius: 12px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <div class="navbar">
+    <h2>Clínica Vida+</h2>
+    <div>
+      <a href="/">Início</a>
+      <a href="/servicos">Serviços</a>
+      <a href="/medicos">Médicos</a>
+      <a href="/contato">Contato</a>
+      <a href="/login">Login</a>
+    </div>
+  </div>
+
+  
+<div class="container">
+  <h1>Nossos Serviços</h1>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Consulta Clínica</h3>
+      <p>Atendimento geral com médicos especializados</p>
+    </div>
+
+    <div class="card">
+      <h3>Psicologia</h3>
+      <a href="/login"></a>
+      <p>Atendimento psicológico profissional</p>
+    </div>
+
+    <div class="card">
+      <h3>Cardiologia</h3>
+      <p>Cuidados com o coração e exames</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

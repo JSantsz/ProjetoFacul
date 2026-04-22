@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Login - Clínica</title>
+  <title>Login - Clínica Vida+</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -18,7 +18,38 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #eef2f5;
+      background: url("{{ url_for('static', filename='images/logo.jpg') }}") no-repeat center center;
+      background-size: cover;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .navbar h2 { color: #0072ff; }
+
+    .navbar a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
     }
 
     .card {
@@ -29,6 +60,8 @@
       max-width: 360px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.06);
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
     .card h2 {
@@ -63,11 +96,10 @@
       transition: 0.2s;
     }
 
-   input:focus {
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+    input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
     }
-    
 
     .btn {
       width: 100%;
@@ -99,26 +131,36 @@
     .links a:hover {
       text-decoration: underline;
     }
-
   </style>
 </head>
 
 <body>
 
+  <!-- NAV -->
+  <div class="navbar">
+    <h2>Clínica Vida+</h2>
+    <div>
+      <a href="/">Início</a>
+      <a href="/servicos">Serviços</a>
+      <a href="/medicos">Médicos</a>
+      <a href="/contato">Contato</a>
+      <a href="/login">Login</a>
+    </div>
+  </div>
+
   <div class="card">
     <h2>Área exclusiva</h2>
-    <p>Acesse sua</p>
+    <p>Acesse sua conta</p>
 
     <form method="POST" action="/login">
-
       <div class="input-group">
         <label>Email</label>
-        <input type="email" placeholder="Digite seu email">
+        <input type="email" name="email" placeholder="Digite seu email">
       </div>
 
       <div class="input-group">
         <label>Senha</label>
-        <input type="password" placeholder="Digite sua senha" required>
+        <input type="password" name="senha" placeholder="Digite sua senha">
       </div>
 
       <button class="btn" type="submit">Entrar</button>

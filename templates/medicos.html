@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Médicos</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+
+  background: url("{{ url_for('static', filename='images/medicos.jpg') }}") no-repeat center center;
+  background-size: cover;
+}
+
+/* escurece fundo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-color: #00000080;
+}
+
+/* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1px 40px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      box-sizing: border-box;
+    }
+
+    .navbar h2 { color: #0072ff; }
+
+    .navbar a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+
+/* container */
+.container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+
+  height: 100vh;              /* ocupa a tela toda */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;    /* centraliza vertical */
+  align-items: center;        /* centraliza horizontal */
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+/* cards */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  color: #333;
+  border-radius: 12px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+
+  background: url("{{ url_for('static', filename='images/medicos.jpg') }}") no-repeat center center;
+  background-size: cover;
+}
+
+/* escurece fundo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-color: #00000080;
+}
+
+</style>
+</head>
+
+<body>
+
+ <!-- NAV -->
+  <div class="navbar">
+    <h2>Clínica Vida+</h2>
+    <div>
+      <a href="/">Início</a>
+      <a href="/servicos">Serviços</a>
+      <a href="/medicos">Médicos</a>
+      <a href="/contato">Contato</a>
+      <a href="/login">Login</a>
+    </div>
+  </div>
+
+<div class="container">
+  <h1>Nossos Médicos</h1>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Dr. João Silva</h3>
+      <p>Clínico Geral</p>
+    </div>
+
+    <div class="card">
+      <h3>Dra. Maria Souza</h3>
+      <p>Psicóloga</p>
+    </div>
+
+    <div class="card">
+      <h3>Dr. Carlos Lima</h3>
+      <p>Cardiologista</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

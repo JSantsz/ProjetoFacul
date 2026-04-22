@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Check-up Mental</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+
+  background: url("{{ url_for('static', filename='images/checkup.jpg') }}") no-repeat center center;
+  background-size: cover;
+}
+
+/* overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-color: #00000080;
+}
+
+/* container */
+.container {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* card */
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.card h2 {
+  margin-bottom: 15px;
+}
+
+.card p {
+  margin-bottom: 20px;
+}
+
+/* botão */
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #00a2ff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #00cbfd;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="card">
+    <h2>Check-up Mental</h2>
+    <p>Realize uma avaliação completa do seu estado emocional e psicológico.</p>
+
+    <button class="btn">Iniciar Avaliação</button>
+  </div>
+</div>
+
+</body>
+</html>

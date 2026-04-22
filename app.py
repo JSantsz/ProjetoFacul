@@ -167,6 +167,27 @@ def agendar():
 
     return redirect("/dashboard")
 
+# Botão médicos
+@app.route("/medicos", methods=["GET"])
+def medicos_page():
+    return render_template("medicos.html")
+
+# Botão serviços
+@app.route("/servicos")
+def servicos_page():
+    return render_template("servicos.html")
+
+# Botão contato
+@app.route("/contato")
+def contato():
+    return render_template("contato.html")
+
+# Botão inicio
+@app.route("/inicio")
+def inicio():
+    return render_template("home.")
+
+
 
 # LOGOUT
 @app.route("/logout")
